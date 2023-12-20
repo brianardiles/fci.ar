@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>API Data Display</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+
+<div class="flex flex-col w-full min-h-screen">
+  <header class="flex items-center h-16 px-4 border-b shrink-0 md:px-6">
+    <nav class="flex-col hidden gap-6 text-lg font-medium md:flex md:flex-row md:items-center md:gap-5 md:text-sm lg:gap-6">
+      <a class="flex items-center gap-2 text-lg font-semibold md:text-base" href="#">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          class="w-6 h-6"
+        >
+          <path d="M3 9h18v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V9Z"></path>
+          <path d="m3 9 2.45-4.9A2 2 0 0 1 7.24 3h9.52a2 2 0 0 1 1.8 1.1L21 9"></path>
+          <path d="M12 3v6"></path>
+        </svg>
+        <span class="sr-only">Top 5 FCI</span>
+      </a>
+    </nav>
+  </header>
+  <main class="flex flex-col gap-4 p-4 md:gap-8 md:p-10">
+    <div class="grid gap-4 lg:grid-cols-5" id="cardContainer">
+      <!-- Cards will be dynamically added here -->
+    </div>
+  </main>
+
+  <script>
+    // Fetch data from the API
+    fetch('https://private-49892-brianardiles.apiary-mock.com/fci')
+      .then(response => response.json())
+      .then(data => {
+        // Get the container where cards will be appended
+        const cardContainer = document.getElementById('cardContainer');
+
+        // Iterate over the data and create a card for each item
+        data.forEach(item => {
+          // Create a new card element
+          const card = document.createElement('div');
+          card.className = 'rounded-lg border bg-card text-card-foreground shadow-sm';
+
+          // Populate the card with data from the API
+          card.innerHTML = `
+            <div class="p-6 flex flex-row items-center justify-between pb-2 space-y-0">
+              <h3 class="tracking-tight text-sm font-medium">${item.name}</h3>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="w-4 h-4 text-gray-500 dark:text-gray-400"
+              >
+              <!--img logo FCI-->
+            </div>
+            <div class="p-6">
+              <div class="text-2xl font-bold">${item.weekAverage}%</div>
+            </div>
+          `;
+
+          // Append the card to the container
+          cardContainer.appendChild(card);
+        });
+      })
+      .catch(error => console.error('Error fetching data:', error));
+  </script>
+</div>
+
+</body>
+</html>
