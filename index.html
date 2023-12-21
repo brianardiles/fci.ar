@@ -40,7 +40,12 @@
 
   <script>
     // Fetch data from the API
-    fetch('https://private-49892-brianardiles.apiary-mock.com/fci')
+    fetch('https://atromjdslenipyfkivko.supabase.co/rest/v1/fcis?select=*&order=tna_average_week.desc',
+    {
+      headers: {
+        'apikey': "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImF0cm9tamRzbGVuaXB5ZmtpdmtvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDMxNjQ3MjEsImV4cCI6MjAxODc0MDcyMX0.t4Okifv1i7M9z0uX_fngulSFMYAGdZOGbF5Rct5SWAQ"
+      }
+    })
       .then(response => response.json())
       .then(data => {
         // Get the container where cards will be appended
@@ -71,7 +76,7 @@
               <!--img logo FCI-->
             </div>
             <div class="p-6">
-              <div class="text-2xl font-bold">${item.weekAverage}%</div>
+              <div class="text-2xl font-bold">${item.tna_average_week}%</div>
               <div class="rounded-md bg-lime-300 w-14 text-center text-lime-700"> ${item.variation}% </div>
             </div>
           `;
